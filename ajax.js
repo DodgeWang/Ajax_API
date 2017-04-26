@@ -5,7 +5,7 @@ var Ajax = function() {
         var defaults = {
         	url:'',
         	data:'',
-            async:true
+            async:true   //默认为异步操作
         }
         defaults = objToObj(opts,defaults)
 
@@ -33,8 +33,8 @@ var Ajax = function() {
     	var defaults = {
         	url:'',
         	data:'',
-            async:true,
-            ContentType:'application/x-www-form-urlencoded'
+            async:true,    //默认为异步操作
+            ContentType:'application/x-www-form-urlencoded'   //默认编码请求
         }
         defaults = objToObj(opts,defaults)
     	request.onreadystatechange = function() {
