@@ -1,0 +1,25 @@
+1.实例化对象  new Ajax()
+
+2.get请求  get(opts,cb)
+opts对象默认参数：
+{
+     url:’’,                //传请求地址
+     data:’’,             //传请求参数对象  例如：{name:1,pass:2}
+     async:true       //异步为true，同步为false
+}
+
+
+2.get请求  post(opts,cb)
+opts对象默认参数：
+{
+     url:’’,                //传请求地址
+     data:’’,             //传请求参数
+     async:true,      //异步为true，同步为false
+     ContentType: 'application/x-www-form-urlencoded’    //请求编码   默认为表单编码请求
+}
+
+ContentType参数可以为：
+   1. 表单编码请求：'application/x-www-form-urlencoded’      请求主体为application/x-www-form-urlencoded格式数据
+   2.JSON编码请求：'application/json’             请求主体为JSON
+   3.XML编码请求：’text/plain; charset=UTF-8’      请求主体为XML
+     注意：XML编码不需要设置Content-type头，XMLHttpRequest对象会自动添加添加’text/plain; charset=UTF-8’头
