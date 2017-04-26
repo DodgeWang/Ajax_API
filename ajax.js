@@ -39,7 +39,7 @@ var Ajax = function() {
         defaults = objToObj(opts,defaults)
     	request.onreadystatechange = function() {
             //如果请求完成且成功
-            if (request.readyState === 4 && request.status === 200) {
+            if (request.readyState === 4 && request.status === 200 && callback) {
                 //获得响应的类型
                 var type = request.getResponseHeader('Content-Type');
                 //检查类型，这样我们就不能在将来得到HTML文档
