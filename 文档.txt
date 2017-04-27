@@ -23,3 +23,13 @@ ContentType参数可以为：
    2.JSON编码请求：'application/json’             请求主体为JSON
    3.XML编码请求：’text/plain; charset=UTF-8’      请求主体为XML
      注意：XML编码不需要设置Content-type头，XMLHttpRequest对象会自动添加添加’text/plain; charset=UTF-8’头
+
+
+3.multipart/form-data请求  formData(opts,cb)
+opts对象默认参数：
+{
+     url:’’,                //传请求地址
+     data:’’,             //传请求参数
+     async:true,      //异步为true，同步为false
+}
+data为数据对象，里面包含file文件和其他类型数据
