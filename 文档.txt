@@ -35,7 +35,7 @@ opts对象默认参数：
 data为数据对象，里面包含file文件和其他类型数据
 
 
-4.JSONP跨域请求  getJSONP(opts,callback)
+4.JSONP跨域请求(只支持GET请求方式)  getJSONP(opts,callback)  
 注意：JSONP请求方式服务端响应类型不能为json，是返回可执行函数包围的字符串类型，在发送http时自动在url链接后面追加了属性为jsonp的参数，返回时返回函数为jsonp属性值为函数名的函数，
 例如返回（nodejs为例子）：res.send(req.query.jsonp+"({name:123,photo:321})")
 opts对象默认参数：
