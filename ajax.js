@@ -108,7 +108,44 @@ var Ajax = function() {
         //在 multipart/form-data请求主体中发送名/值对
         //每对都是请求的一个部分，注意，当传入FormData对象时，send()会自动设置Content-Type
         request.send(formdata)
-    }
+    };
+    
+    //JSONP跨域请求：借助<script>元素发送HTTP请求
+    this.getJSONP = function(opts, callback) {
+        var defaults = {
+            url: '',
+            data: ''
+        }
+        defaults = objToObj(opts, defaults);
+        if (typeof defaults.data === 'object' && JSON.stringify(defaults.data) !== '{}') defaults.url = defaults.url + '?' + encodeFormData(defaults.data);
+        //为本次请求创建一个唯一的回调函数名称
+        var cbnum = 'cb' + getJSONP.counter++;   //每次自增计数器
+        var cbname = 'getJSONP.' + cbnum;        //做为JSONP函数的属性
+        //将回调函数名称以表单编码的形式添加到URL的查询部分中
+        //使用jsonp做为参数名，一些支持JSONP的服务，也可以使用其他参数名,比如callback，但是一定要与服务端一致服务端
+        if (defaults.url.indexOf('?') === -1) {   //url没有查询部分
+            defaults.url += "?jsonp=" + cbname;   //做为查询部分添加参数
+        } else {
+            defaults.url += "&jsonp=" + cbname;   //做为新的参数添加它
+        }
+
+        //创建script元素用于发送请求
+        var script = document.createElement('script');
+        //定义将被脚本执行的回调函数
+        getJSONP[cbnum] = function(response) {
+            try {
+                callback(response);  //处理响应数据
+            } 
+            finally {   //即使回调函数或响应抛出错误
+                delete getJSONP[cbnum];    //删除该函数
+                script.parentNode.removeChild(script);   //移除script元素
+            }
+        };
+        //立即出发HTTP请求
+        script.src = defaults.url;     //设置脚本的URL
+        document.body.appendChild(script);    //把它添加到文档中
+    };
+    getJSONP.counter = 0;    //用于创建唯一回调函数名称的计数器
     
     
     
